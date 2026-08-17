@@ -1,0 +1,14 @@
+{
+  "name": "huefind",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HueFind \u2014 color-aware visual discovery powered by multiple image sources.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "node --check src/index.js && node --check public/app.js && node tests/core.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.68.0"
+  }
+}
