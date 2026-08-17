@@ -1,100 +1,394 @@
-# HueFind
+🎨 HueFind
 
-HueFind is a color-aware visual discovery app. A user enters anything they want to see, chooses a color with a color wheel or HEX value, and gets one unified masonry feed assembled from Google Images (SerpApi), Bing Images (SerpApi.org), Pexels, and Unsplash.
+Find anything. Discover it in your color.
 
-## Architecture
+[🚀 Live Demo — HueFind](https://huefind.ofcnitin.workers.dev?utm_source=chatgpt.com)
 
-- Frontend: framework-free HTML/CSS/JavaScript for a small, fast static asset footprint.
-- Backend: Cloudflare Worker.
-- Static hosting: Cloudflare Workers Static Assets.
-- Rate limiting: SQLite-backed Durable Object, keyed by client IP.
-- Response caching: Cloudflare Cache API.
-- Secrets: Cloudflare Worker secrets only.
-- External image sources:
-  - SerpApi Google Images
-  - SerpApi.org Bing Images
-  - Pexels
-  - Unsplash
+HueFind is a color-aware visual discovery engine built for people who don't just want to search for something — they want to discover it in a specific visual mood, tone, and color.
 
-Cloudflare currently recommends Workers Static Assets for full-stack Worker applications and recommends SQLite-backed Durable Objects for new Durable Object namespaces.
+Type what you're looking for, choose a color from the wheel or enter a HEX code, and HueFind brings visual results together into one beautiful, unified feed. 🌈
 
-## Required secrets
 
-Set these in Cloudflare:
+---
 
-```text
-SERPAPI_KEY
-SERPAPI_ORG_KEY
-PEXELS_API_KEY
-UNSPLASH_ACCESS_KEY
-```
+✨ What makes HueFind different?
 
-For local development, copy `.dev.vars.example` to `.dev.vars` and fill the values. Never commit `.dev.vars`.
+Traditional image search asks:
 
-## Local setup
+> "What are you looking for?"
 
-1. Install Node.js 20+.
-2. Run `npm install`.
-3. Copy `.dev.vars.example` to `.dev.vars`.
-4. Fill the four API keys.
-5. Run `npm run check`.
-6. Run `npm run dev`.
-7. Open the local URL printed by Wrangler.
 
-## Cloudflare deployment
+
+HueFind asks:
+
+> "What are you looking for — and what should it feel like?" 🎨
+
+
+
+🔎 Search anything
+
+Search for virtually anything:
+
+🐕 Dogs
+
+🐈 Cats
+
+🎌 Anime
+
+🌿 Nature
+
+🏙️ Architecture
+
+🎮 Gaming
+
+👗 Fashion
+
+🖼️ Art
+
+🌌 Aesthetic wallpapers
+
+🎨 Color palettes
+
+
+Your imagination is the limit.
+
+🎨 Search by color
+
+Choose your visual theme using:
+
+🌈 Interactive color wheel
+
+🔢 HEX color input
+
+🎲 Random color generation
+
+
+For example:
+
+Query:   "Japanese street"
+Color:   #8B5CF6
+
+HueFind searches for imagery matching both the subject and your chosen color direction.
+
+
+---
+
+🌐 Multiple sources. One feed.
+
+HueFind combines results from multiple image-search providers into a single experience:
+
+Source	Integration
+
+🔍 Google Images	SerpApi
+🔎 Bing Images	SerpApi.org
+📸 Pexels	Pexels API
+🌄 Unsplash	Unsplash API
+
+
+Instead of jumping between different websites, HueFind aggregates the results into one unified masonry feed.
+
+
+---
+
+🧠 Smart Result Ranking
+
+Every result is processed through HueFind's ranking system.
+
+Results consider factors such as:
+
+🎯 Search relevance
+
+🎨 Color relevance
+
+📍 Provider ranking
+
+🔗 Source quality
+
+🧹 Duplicate removal
+
+
+The result is a feed designed to surface the most useful visuals first.
+
+
+---
+
+🖥️ Designed like a physical interface
+
+HueFind intentionally uses a skeuomorphic visual language rather than another flat modern dashboard.
+
+Think:
+
+> 🖥️ Physical controls
+🎛️ Tactile buttons
+🎨 Color controls
+🗂️ Visual cards
+✨ Subtle depth & shadows
+
+
+
+The goal is to make searching feel more like interacting with an instrument than filling out a form.
+
+
+---
+
+⚡ Architecture
+
+┌───────────────┐
+                    │    HueFind    │
+                    │   Frontend    │
+                    └───────┬───────┘
+                            │
+                            ▼
+                   ┌─────────────────┐
+                   │ Cloudflare      │
+                   │ Worker          │
+                   └────────┬────────┘
+                            │
+             ┌──────────────┼──────────────┐
+             ▼              ▼              ▼
+        🔍 Google       🔎 Bing        📸 Pexels
+        Images          Images
+             │              │              │
+             └──────────────┼──────────────┘
+                            │
+                            ▼
+                       🌄 Unsplash
+                            │
+                            ▼
+                  ┌──────────────────┐
+                  │ Normalize        │
+                  │ Deduplicate      │
+                  │ Rank             │
+                  │ Cache            │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                    🎨 HueFind Feed
+
+🛠️ Built with
+
+Frontend: HTML · CSS · JavaScript
+
+Backend: Cloudflare Workers
+
+Static Assets: Cloudflare Workers Static Assets
+
+Rate Limiting: Cloudflare Durable Objects
+
+Caching: Cloudflare Cache API
+
+Source Control: GitHub
+
+API Secrets: Cloudflare Secrets
+
+
+No unnecessary backend platform.
+No exposed API keys.
+No third-party database required. 🔐
+
+
+---
+
+🔐 Security
+
+HueFind keeps provider credentials away from the browser.
+
+Browser
+   │
+   │ Search request
+   ▼
+Cloudflare Worker
+   │
+   ├── 🔐 API Secrets
+   ├── 🛡️ Rate Limiting
+   ├── ⚡ Cache
+   │
+   ▼
+Image APIs
+
+Security features
+
+🔒 API keys remain server-side
+
+🛡️ IP-based rate limiting
+
+⚡ Edge caching
+
+🧹 Input validation
+
+🔗 HTTPS-only external URLs
+
+🧩 Provider failure isolation
+
+
+
+---
+
+🚀 Getting Started
+
+1. Clone the repository
+
+git clone https://github.com/Ofcnitin/HueFind.git
+cd HueFind
+
+2. Install dependencies
+
+npm install
+
+3. Configure local secrets
+
+Copy:
+
+.dev.vars.example
+
+to:
+
+.dev.vars
+
+Then add:
+
+SERPAPI_KEY=
+SERPAPI_ORG_KEY=
+PEXELS_API_KEY=
+UNSPLASH_ACCESS_KEY=
+
+> ⚠️ Never commit .dev.vars.
+
+
+
+4. Run checks
+
+npm run check
+
+5. Start development
+
+npm run dev
+
+
+---
+
+☁️ Cloudflare Deployment
 
 Authenticate Wrangler:
 
-```bash
 npx wrangler login
-```
 
-Set the secrets:
+Add your secrets:
 
-```bash
 npx wrangler secret put SERPAPI_KEY
 npx wrangler secret put SERPAPI_ORG_KEY
 npx wrangler secret put PEXELS_API_KEY
 npx wrangler secret put UNSPLASH_ACCESS_KEY
-```
 
 Deploy:
 
-```bash
 npm run deploy
-```
 
-The first deployment provisions the SQLite-backed `RateLimiter` Durable Object namespace from `wrangler.jsonc`.
 
-## API
+---
 
-`GET /api/search?q=anime&color=%238B5CF6`
+🎯 Example
 
-Optional:
+Imagine you want:
 
-- `page` — positive integer, default 1.
-- `perSource` — 1–40, default 30.
+> "Cyberpunk city"
 
-The response is normalized into one schema regardless of provider.
 
-## Ranking model
 
-The backend deliberately does not download arbitrary third-party images to analyze pixels. Instead it uses the strongest color metadata each provider exposes:
+and choose:
 
-- Pexels: exact HEX color filter plus `avg_color`.
-- Unsplash: nearest supported color family plus returned `color`.
-- Google/Bing: color wording is added to the query so the search engine itself biases results toward the selected theme.
+#00FFFF
 
-Every result receives a source, relevance position, color score when provider metadata is available, and a deterministic final score. This avoids turning the Worker into an uncontrolled image proxy.
+HueFind transforms that into a color-aware visual search and returns a unified collection of imagery with a cyan/blue visual direction. 🌃💠
 
-## Attribution / provider rules
+Or:
 
-The UI keeps source attribution and opens the original source page when an image is selected. Pexels and Unsplash usage/attribution requirements must be reviewed before production launch. Do not rehost provider images.
+> "Anime girl" + #FF69B4
 
-## Security
 
-- API keys are never sent to the browser.
-- The API rejects malformed/oversized search queries.
-- Requests are rate-limited before external providers are called.
-- Search responses are edge-cached.
-- Provider failures are isolated with `Promise.allSettled`; one provider being unavailable does not break the entire feed.
+
+💗 → pink-toned visual discovery.
+
+Or:
+
+> "Forest" + #228B22
+
+
+
+🌲 → green-toned imagery.
+
+
+---
+
+📸 Attribution
+
+HueFind surfaces imagery from third-party providers and preserves source information.
+
+Images remain hosted by their respective providers; HueFind does not rehost the images.
+
+Always review the current usage and attribution requirements of:
+
+SerpApi
+
+SerpApi.org
+
+Pexels
+
+Unsplash
+
+
+before deploying a public production service.
+
+
+---
+
+🗺️ Roadmap
+
+HueFind is currently focused on its core experience.
+
+Potential future improvements:
+
+[ ] ♾️ Infinite visual discovery
+
+[ ] 🎨 More advanced color matching
+
+[ ] 🧠 Improved semantic search
+
+[ ] 🖼️ Image similarity search
+
+[ ] ❤️ Personal collections
+
+[ ] 📌 Save / organize discoveries
+
+[ ] 🌈 Multi-color palettes
+
+[ ] 🔀 Advanced visual filters
+
+[ ] 📱 Progressive Web App support
+
+
+
+---
+
+🤝 Contributing
+
+Ideas, improvements, and bug reports are welcome.
+
+If you find something that could make HueFind better:
+
+1. ⭐ Star the repository
+
+
+2. 🍴 Fork the project
+
+
+3. 🛠️ Make your changes
+
+
+4. 📤 Open a pull request
+
+
+
+
+---
+
