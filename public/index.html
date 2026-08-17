@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d7d2c8">
+  <meta name="description" content="HueFind — find anything in the color you want.">
+  <title>HueFind — Visual discovery by color</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="desk">
+    <header class="topbar">
+      <div class="brand" aria-label="HueFind home">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div>
+          <div class="brand-name">HueFind</div>
+          <div class="brand-tag">visual discovery by color</div>
+        </div>
+      </div>
+      <div class="status-lamp" id="statusLamp" title="API status">
+        <i></i><span id="statusText">Ready</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="console" aria-label="Search controls">
+        <div class="console-screw screw-a"></div>
+        <div class="console-screw screw-b"></div>
+        <div class="console-screw screw-c"></div>
+        <div class="console-screw screw-d"></div>
+
+        <div class="console-heading">
+          <div>
+            <span class="eyebrow">VISUAL SEARCH CONSOLE</span>
+            <h1>Find anything.<br><em>In your color.</em></h1>
+          </div>
+          <div class="serial">HF-01 / ONLINE</div>
+        </div>
+
+        <form id="searchForm" class="controls">
+          <label class="search-field">
+            <span>SEARCH SUBJECT</span>
+            <div class="input-shell">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.6-4.6m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+              <input id="queryInput" maxlength="120" autocomplete="off" placeholder="dog, anime, architecture, cozy room…" required>
+            </div>
+          </label>
+
+          <div class="color-module">
+            <div class="color-title"><span>COLOR THEME</span><button type="button" id="randomColor" class="tiny-button">RANDOM</button></div>
+            <div class="color-controls">
+              <button type="button" class="color-wheel" id="colorWheel" aria-label="Choose color">
+                <span id="wheelKnob"></span>
+              </button>
+              <div class="hex-control">
+                <div class="swatch" id="swatch"></div>
+                <div>
+                  <label for="hexInput">HEX VALUE</label>
+                  <input id="hexInput" value="#8B5CF6" maxlength="7" spellcheck="false" aria-label="Hex color">
+                </div>
+              </div>
+              <input id="nativeColor" type="color" value="#8B5CF6" tabindex="-1" aria-hidden="true">
+            </div>
+          </div>
+
+          <button class="search-button" id="searchButton" type="submit">
+            <span class="button-face">SEARCH</span>
+            <span class="button-glow"></span>
+          </button>
+        </form>
+
+        <div class="console-footer">
+          <span><b>4</b> visual sources</span>
+          <span class="dot"></span>
+          <span>Google · Bing · Pexels · Unsplash</span>
+          <span class="footer-spacer"></span>
+          <span>COLOR MATCH <b id="selectedColor">#8B5CF6</b></span>
+        </div>
+      </section>
+
+      <section class="results-area">
+        <div class="results-head">
+          <div>
+            <span class="eyebrow">DISCOVERY FEED</span>
+            <h2 id="resultsTitle">Ready when you are</h2>
+          </div>
+          <div class="feed-meta" id="feedMeta">Choose a subject and color</div>
+        </div>
+
+        <div id="errorBox" class="error-box" hidden></div>
+        <div id="emptyState" class="empty-state">
+          <div class="empty-object">
+            <div class="object-lens"></div>
+            <div class="object-label">HUEFIND</div>
+          </div>
+          <h3>Set the dial. Hit search.</h3>
+          <p>HueFind combines multiple visual sources into one color-aware feed.</p>
+        </div>
+
+        <div id="loader" class="loader-grid" hidden>
+          <div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+
+        <div id="resultsGrid" class="masonry" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>HUEFIND</span>
+      <span>Built for visual exploration</span>
+      <span>Source links preserved</span>
+    </footer>
+  </div>
+
+  <dialog id="imageDialog" class="image-dialog">
+    <div class="dialog-frame">
+      <button class="close-dialog" id="closeDialog" type="button" aria-label="Close">×</button>
+      <div class="dialog-image-wrap"><img id="dialogImage" alt=""></div>
+      <div class="dialog-info">
+        <div>
+          <span class="eyebrow" id="dialogSource"></span>
+          <h3 id="dialogTitle"></h3>
+        </div>
+        <a id="dialogLink" class="source-button" href="#" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL ↗</a>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
